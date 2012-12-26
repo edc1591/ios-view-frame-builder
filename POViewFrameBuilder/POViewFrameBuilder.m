@@ -247,6 +247,12 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 - (POViewFrameBuilder *)alignToView:(NSUIView *)view edge:(POViewFrameBuilderEdge)edge offset:(CGFloat)offset {
   CGRect viewFrame = [view.superview convertRect:view.frame toView:self.view.superview];
   
+#ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
+  // Handle difference in origin of the coordinate system in UIView and NSView
+  if (edge == POViewFrameBuilderEdgeTop) edge = POViewFrameBuilderEdgeBottom;
+  else if (edge == POViewFrameBuilderEdgeBottom) edge = POViewFrameBuilderEdgeTop;
+#endif
+  
   switch (edge) {
     case POViewFrameBuilderEdgeTop:
       self.frame = PORectWithY(self.frame, viewFrame.origin.y - offset - self.frame.size.height);
@@ -346,6 +352,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 }
 
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+// TODO How to realize sizeThatFits for NSView?
 
 - (POViewFrameBuilder *)setSizeToFitWidth {
   CGRect frame = self.frame;
