@@ -325,6 +325,8 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   }];
 }
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+
 - (POViewFrameBuilder *)setSizeToFitWidth {
   CGRect frame = self.frame;
   frame.size.width = [self.view sizeThatFits:CGSizeMake(CGFLOAT_MAX, self.frame.size.height)].width;
@@ -357,5 +359,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
     [view sizeToFit];
   }
 }
+
+#endif
 
 @end

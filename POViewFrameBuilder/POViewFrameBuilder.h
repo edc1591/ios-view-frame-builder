@@ -21,13 +21,8 @@
 @property (nonatomic) BOOL automaticallyCommitChanges; // Default is YES
 
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-  - (id)initWithView:(UIView *)view;
-  + (POViewFrameBuilder *)frameBuilderForView:(UIView *)view;
-#else
-  - (id)initWithView:(NSView *)view;
-  + (POViewFrameBuilder *)frameBuilderForView:(NSView *)view;
-#endif
+- (id)initWithView:(NSUIView *)view;
++ (POViewFrameBuilder *)frameBuilderForView:(NSUIView *)view;
 
 - (void)commit;
 - (void)reset;
@@ -75,10 +70,13 @@
 - (POViewFrameBuilder *)setHeight:(CGFloat)height;
 - (POViewFrameBuilder *)setSize:(CGSize)size;
 - (POViewFrameBuilder *)setSizeWithWidth:(CGFloat)width height:(CGFloat)height;
+
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 - (POViewFrameBuilder *)setSizeToFitWidth;
 - (POViewFrameBuilder *)setSizeToFitHeight;
 - (POViewFrameBuilder *)setSizeToFit;
 
 + (void)sizeToFitViews:(NSArray *)views;
+#endif
 
 @end

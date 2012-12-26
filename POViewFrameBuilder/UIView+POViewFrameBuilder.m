@@ -5,9 +5,9 @@
 //  Copyright (c) 2012 Citrix Systems, Inc. All rights reserved.
 //
 
-#import "UIView+POViewFrameBuilder.h"
-
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+
+#import "UIView+POViewFrameBuilder.h"
 
 @implementation UIView (POViewFrameBuilder)
 
