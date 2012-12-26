@@ -13,11 +13,7 @@
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-  #define NSUIView UIView
-#else
-  #define NSUIView NSView
-#endif
+
 
 typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   POViewFrameBuilderEdgeTop,
