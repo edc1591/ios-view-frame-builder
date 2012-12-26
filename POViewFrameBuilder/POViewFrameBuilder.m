@@ -13,6 +13,11 @@
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  #define NSUIEdgeInsetsMake(top,left,bottom,right) UIEdgeInsetsMake(top,left,bottom,right)
+#else
+  #define NSUIEdgeInsetsMake(top,left,bottom,right) NSEdgeInsetsMake(top,left,bottom,right)
+#endif
 
 
 typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
@@ -30,9 +35,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 
 @implementation POViewFrameBuilder
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-
-- (id)initWithView:(UIView *)view {
+- (id)initWithView:(NSUIView *)view {
   self = [super init];
   if (self) {
     _view = view;
@@ -42,34 +45,15 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   return self;
 }
 
-+ (POViewFrameBuilder *)frameBuilderForView:(UIView *)view {
++ (POViewFrameBuilder *)frameBuilderForView:(NSUIView *)view {
   return [[[self class] alloc] initWithView:view];
 }
-
-#else
-
-- (id)initWithView:(NSView *)view {
-    self = [super init];
-    if (self) {
-        _view = view;
-        _frame = view.frame;
-        _automaticallyCommitChanges = YES;
-    }
-    return self;
-}
-
-+ (POViewFrameBuilder *)frameBuilderForView:(NSView *)view {
-    return [[[self class] alloc] initWithView:view];
-}
-
-#endif
-
 
 #pragma mark - Properties
 
 - (void)setFrame:(CGRect)frame {
   _frame = frame;
-
+  
   if (self.automaticallyCommitChanges) {
     [self commit];
   }
@@ -86,22 +70,22 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 }
 
 - (void)update:(void (^)(POViewFrameBuilder *builder))block {
-    [self disableAutoCommit];
-    block(self);
-    [self commit];
+  [self disableAutoCommit];
+  block(self);
+  [self commit];
 }
 
 - (POViewFrameBuilder *)performChangesInGroupWithBlock:(void (^)(void))block {
   BOOL automaticCommitEnabled = self.automaticallyCommitChanges;
-
+  
   self.automaticallyCommitChanges = NO;
   block();
   self.automaticallyCommitChanges = automaticCommitEnabled;
-
+  
   if (self.automaticallyCommitChanges) {
     [self commit];
   }
-
+  
   return self;
 }
 
@@ -109,13 +93,13 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 
 - (POViewFrameBuilder *)enableAutoCommit {
   self.automaticallyCommitChanges = YES;
-
+  
   return self;
 }
 
 - (POViewFrameBuilder *)disableAutoCommit {
   self.automaticallyCommitChanges = NO;
-
+  
   return self;
 }
 
@@ -123,13 +107,13 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 
 - (POViewFrameBuilder *)setX:(CGFloat)x {
   self.frame = PORectWithX(self.frame, x);
-
+  
   return self;
 }
 
 - (POViewFrameBuilder *)setY:(CGFloat)y {
   self.frame = PORectWithY(self.frame, y);
-
+  
   return self;
 }
 
@@ -141,13 +125,13 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 
 - (POViewFrameBuilder *)moveWithOffsetX:(CGFloat)offsetX {
   self.frame = PORectWithX(self.frame, self.frame.origin.x + offsetX);
-
+  
   return self;
 }
 
 - (POViewFrameBuilder *)moveWithOffsetY:(CGFloat)offsetY {
   self.frame = PORectWithY(self.frame, self.frame.origin.y + offsetY);
-
+  
   return self;
 }
 
@@ -167,9 +151,9 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   if (!self.view.superview) {
     return self;
   }
-
+  
   self.frame = PORectWithX(self.frame, roundf((self.view.superview.bounds.size.width - self.frame.size.width) / 2));
-
+  
   return self;
 }
 
@@ -177,155 +161,72 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   if (!self.view.superview) {
     return self;
   }
-
+  
   self.frame = PORectWithY(self.frame, roundf((self.view.superview.bounds.size.height - self.frame.size.height) / 2));
-
+  
   return self;
 }
 
-
 - (POViewFrameBuilder *)alignToTopInSuperviewWithInset:(CGFloat)inset {
-  [self alignToTopInSuperviewWithInsetTop:inset left:0.0f bottom:0.0f right:0.0f];
-
+  [self alignToTopInSuperviewWithInsets:NSUIEdgeInsetsMake(inset, 0.0f, 0.0f, 0.0f)];
+  
   return self;
 }
 
 - (POViewFrameBuilder *)alignToBottomInSuperviewWithInset:(CGFloat)inset {
-  [self alignToBottomInSuperviewWithInsetTop:0.0f left:0.0f bottom:inset right:0.0f];
-
+  [self alignToBottomInSuperviewWithInsets:NSUIEdgeInsetsMake(0.0f, 0.0f, inset, 0.0f)];
+  
   return self;
 }
 
 - (POViewFrameBuilder *)alignLeftInSuperviewWithInset:(CGFloat)inset {
-  [self alignLeftInSuperviewWithInsetTop:0.0f left:inset bottom:0.0f right:0.0f];
-
+  [self alignLeftInSuperviewWithInsets:NSUIEdgeInsetsMake(0.0f, inset, 0.0f, 0.0f)];
+  
   return self;
-
+  
 }
 
 - (POViewFrameBuilder *)alignRightInSuperviewWithInset:(CGFloat)inset {
-  [self alignRightInSuperviewWithInsetTop:0.0f left:0.0f bottom:0.0f right:inset];
-
-  return self;
-}
-
-
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-
-- (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(UIEdgeInsets)insets {
-  [self alignToTopInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-
-  return self;
-}
-
-- (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(UIEdgeInsets)insets {
-    [self alignToBottomInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-    
-    return self;
-}
-
-- (POViewFrameBuilder *)alignLeftInSuperviewWithInsets:(UIEdgeInsets)insets {
-  [self alignLeftInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
+  [self alignRightInSuperviewWithInsets:NSUIEdgeInsetsMake(0.0f, 0.0f, 0.0f, inset)];
   
   return self;
 }
 
-- (POViewFrameBuilder *)alignRightInSuperviewWithInsets:(UIEdgeInsets)insets {
-  [self alignRightInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-  
-  return self;
-}
-
-#else
-
-- (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(NSEdgeInsets)insets
-{
-  [self alignToTopInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-  
-  return self;
-}
-
-- (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(NSEdgeInsets)insets
-{
-  [self alignToBottomInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-  
-  return self;
-}
-
-- (POViewFrameBuilder *)alignLeftInSuperviewWithInsets:(NSEdgeInsets)insets
-{
-  [self alignLeftInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-  
-  return self;
-}
-
-- (POViewFrameBuilder *)alignRightInSuperviewWithInsets:(NSEdgeInsets)insets
-{
-  [self alignRightInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
-  
-  return self;
-}
-
-
-#endif
-
-
-- (POViewFrameBuilder *)alignToTopInSuperviewWithInsetTop:(CGFloat)topInset
-                                                     left:(CGFloat)leftInset
-                                                   bottom:(CGFloat)bottomInset
-                                                    right:(CGFloat)rightInset {
+- (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(NSUIEdgeInsets)insets {
   self.frame = PORectWithOrigin(self.frame,
-                                self.frame.origin.x + leftInset - rightInset,
-                                topInset - bottomInset);
-    
-  return self;
-}
-
-
-- (POViewFrameBuilder *)alignToBottomInSuperviewWithInsetTop:(CGFloat)topInset
-                                                        left:(CGFloat)leftInset
-                                                      bottom:(CGFloat)bottomInset
-                                                       right:(CGFloat)rightInset {
-  self.frame = PORectWithOrigin(self.frame,
-                                  self.frame.origin.x + leftInset - rightInset,
-                                  self.view.superview.bounds.size.height - self.frame.size.height + topInset - bottomInset);
-    
-  return self;
-}
-
-
-- (POViewFrameBuilder *)alignLeftInSuperviewWithInsetTop:(CGFloat)topInset
-                                                    left:(CGFloat)leftInset
-                                                  bottom:(CGFloat)bottomInset
-                                                   right:(CGFloat)rightInset {
-  self.frame = PORectWithOrigin(self.frame,
-                                leftInset - rightInset,
-                                self.frame.origin.y + topInset - bottomInset);
+                                self.frame.origin.x + insets.left - insets.right,
+                                insets.top - insets.bottom);
   
   return self;
 }
 
-
-- (POViewFrameBuilder *)alignRightInSuperviewWithInsetTop:(CGFloat)topInset
-                                                     left:(CGFloat)leftInset
-                                                   bottom:(CGFloat)bottomInset
-                                                    right:(CGFloat)rightInset {
+- (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(NSUIEdgeInsets)insets {
   self.frame = PORectWithOrigin(self.frame,
-                                self.view.superview.bounds.size.width - self.frame.size.width + leftInset - rightInset,
-                                self.frame.origin.y + topInset - bottomInset);
+                                self.frame.origin.x + insets.left - insets.right,
+                                self.view.superview.bounds.size.height - self.frame.size.height + insets.top - insets.bottom);
   
   return self;
 }
 
+- (POViewFrameBuilder *)alignLeftInSuperviewWithInsets:(NSUIEdgeInsets)insets {
+  self.frame = PORectWithOrigin(self.frame,
+                                insets.left - insets.right,
+                                self.frame.origin.y + insets.top - insets.bottom);
+  
+  return self;
+}
 
-
-
-
-
+- (POViewFrameBuilder *)alignRightInSuperviewWithInsets:(NSUIEdgeInsets)insets {
+  self.frame = PORectWithOrigin(self.frame,
+                                self.view.superview.bounds.size.width - self.frame.size.width + insets.left - insets.right,
+                                self.frame.origin.y + insets.top - insets.bottom);
+  
+  return self;
+}
 
 - (POViewFrameBuilder *)alignToView:(NSUIView *)view edge:(POViewFrameBuilderEdge)edge offset:(CGFloat)offset {
   CGRect viewFrame = [view.superview convertRect:view.frame toView:self.view.superview];
-
+  
   switch (edge) {
     case POViewFrameBuilderEdgeTop:
       self.frame = PORectWithY(self.frame, viewFrame.origin.y - offset - self.frame.size.height);
@@ -342,7 +243,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
     default:
       break;
   }
-
+  
   return self;
 }
 
@@ -375,7 +276,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
       CGFloat spacing = block != nil ? block(previousView, view) : 0.0f;
       [[[self alloc] initWithView:view] alignToBottomOfView:previousView offset:spacing];
     }
-
+    
     previousView = view;
   }
 }
@@ -393,7 +294,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
       CGFloat spacing = block != nil ? block(previousView, view) : 0.0f;
       [[[self alloc] initWithView:view] alignRightOfView:previousView offset:spacing];
     }
-
+    
     previousView = view;
   }
 }
@@ -402,19 +303,19 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 
 - (POViewFrameBuilder *)setWidth:(CGFloat)width {
   self.frame = PORectWithWidth(self.frame, width);
-
+  
   return self;
 }
 
 - (POViewFrameBuilder *)setHeight:(CGFloat)height {
   self.frame = PORectWithHeight(self.frame, height);
-
+  
   return self;
 }
 
 - (POViewFrameBuilder *)setSize:(CGSize)size {
   self.frame = PORectWithSize(self.frame, size.width, size.height);
-
+  
   return self;
 }
 
@@ -428,7 +329,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   CGRect frame = self.frame;
   frame.size.width = [self.view sizeThatFits:CGSizeMake(CGFLOAT_MAX, self.frame.size.height)].width;
   self.frame = frame;
-
+  
   return self;
 }
 
@@ -436,7 +337,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   CGRect frame = self.frame;
   frame.size.height = [self.view sizeThatFits:CGSizeMake(self.frame.size.width, CGFLOAT_MAX)].height;
   self.frame = frame;
-
+  
   return self;
 }
 
@@ -452,7 +353,7 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 }
 
 + (void)sizeToFitViews:(NSArray *)views {
-  for (UIView *view in views) {
+  for (NSUIView *view in views) {
     [view sizeToFit];
   }
 }
