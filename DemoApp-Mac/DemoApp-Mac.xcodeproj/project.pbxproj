@@ -17,6 +17,9 @@
 		A587381B168B31D600749421 /* POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873817168B31D600749421 /* POViewFrameBuilder.m */; };
 		A587381C168B31D600749421 /* UIView+POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873819168B31D600749421 /* UIView+POViewFrameBuilder.m */; };
 		A5873847168B91E400749421 /* NSView+POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873846168B91E400749421 /* NSView+POViewFrameBuilder.m */; };
+		A5873852168B956D00749421 /* LAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873850168B956C00749421 /* LAViewController.m */; };
+		A5873853168B956D00749421 /* LAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5873851168B956C00749421 /* LAViewController.xib */; };
+		A5873855168B95E700749421 /* green_square.png in Resources */ = {isa = PBXBuildFile; fileRef = A5873854168B95E700749421 /* green_square.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,10 @@
 		A5873819168B31D600749421 /* UIView+POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+POViewFrameBuilder.m"; sourceTree = "<group>"; };
 		A5873845168B91E400749421 /* NSView+POViewFrameBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+POViewFrameBuilder.h"; sourceTree = "<group>"; };
 		A5873846168B91E400749421 /* NSView+POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+POViewFrameBuilder.m"; sourceTree = "<group>"; };
+		A587384F168B956C00749421 /* LAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAViewController.h; sourceTree = "<group>"; };
+		A5873850168B956C00749421 /* LAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAViewController.m; sourceTree = "<group>"; };
+		A5873851168B956C00749421 /* LAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LAViewController.xib; sourceTree = "<group>"; };
+		A5873854168B95E700749421 /* green_square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green_square.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +104,9 @@
 			children = (
 				A5873804168B319600749421 /* LAAppDelegate.h */,
 				A5873805168B319600749421 /* LAAppDelegate.m */,
+				A587384F168B956C00749421 /* LAViewController.h */,
+				A5873850168B956C00749421 /* LAViewController.m */,
+				A5873851168B956C00749421 /* LAViewController.xib */,
 				A5873807168B319600749421 /* MainMenu.xib */,
 				A58737F9168B319600749421 /* Supporting Files */,
 			);
@@ -111,6 +121,7 @@
 				A58737FE168B319600749421 /* main.m */,
 				A5873800168B319600749421 /* DemoApp-Mac-Prefix.pch */,
 				A5873801168B319600749421 /* Credits.rtf */,
+				A5873854168B95E700749421 /* green_square.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -186,6 +197,8 @@
 				A58737FD168B319600749421 /* InfoPlist.strings in Resources */,
 				A5873803168B319600749421 /* Credits.rtf in Resources */,
 				A5873809168B319600749421 /* MainMenu.xib in Resources */,
+				A5873853168B956D00749421 /* LAViewController.xib in Resources */,
+				A5873855168B95E700749421 /* green_square.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +215,7 @@
 				A587381B168B31D600749421 /* POViewFrameBuilder.m in Sources */,
 				A587381C168B31D600749421 /* UIView+POViewFrameBuilder.m in Sources */,
 				A5873847168B91E400749421 /* NSView+POViewFrameBuilder.m in Sources */,
+				A5873852168B956D00749421 /* LAViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

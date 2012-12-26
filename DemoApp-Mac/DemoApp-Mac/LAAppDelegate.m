@@ -13,6 +13,9 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
+  
+  self.viewController = [[LAViewController alloc] initWithNibName:@"LAViewController" bundle:nil];
+  [self.window setContentView:self.viewController.view];
 }
 
 @end

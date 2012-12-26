@@ -7,9 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LAViewController.h"
 
 @interface LAAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+
+@property (strong, nonatomic) LAViewController *viewController;
 
 @end
