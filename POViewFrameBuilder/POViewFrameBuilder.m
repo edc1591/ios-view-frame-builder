@@ -197,17 +197,33 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 }
 
 - (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(NSUIEdgeInsets)insets {
+  CGFloat y;
+  // Handle difference in origin of the coordinate system in UIView and NSView
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  y = insets.top - insets.bottom;
+#else
+  y = self.view.superview.bounds.size.height - self.frame.size.height + insets.bottom - insets.top;
+#endif
+  
   self.frame = PORectWithOrigin(self.frame,
                                 self.frame.origin.x + insets.left - insets.right,
-                                insets.top - insets.bottom);
+                                y);
   
   return self;
 }
 
 - (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(NSUIEdgeInsets)insets {
+  CGFloat y;
+  // Handle difference in origin of the coordinate system in UIView and NSView
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  y = self.view.superview.bounds.size.height - self.frame.size.height + insets.top - insets.bottom;
+#else
+  y = insets.bottom - insets.top;
+#endif
+  
   self.frame = PORectWithOrigin(self.frame,
                                 self.frame.origin.x + insets.left - insets.right,
-                                self.view.superview.bounds.size.height - self.frame.size.height + insets.top - insets.bottom);
+                                y);
   
   return self;
 }
