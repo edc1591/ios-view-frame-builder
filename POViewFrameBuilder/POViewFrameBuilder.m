@@ -28,6 +28,8 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 
 @implementation POViewFrameBuilder
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+
 - (id)initWithView:(UIView *)view {
   self = [super init];
   if (self) {
@@ -41,6 +43,25 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 + (POViewFrameBuilder *)frameBuilderForView:(UIView *)view {
   return [[[self class] alloc] initWithView:view];
 }
+
+#else
+
+- (id)initWithView:(NSView *)view {
+    self = [super init];
+    if (self) {
+        _view = view;
+        _frame = view.frame;
+        _automaticallyCommitChanges = YES;
+    }
+    return self;
+}
+
++ (POViewFrameBuilder *)frameBuilderForView:(NSView *)view {
+    return [[[self class] alloc] initWithView:view];
+}
+
+#endif
+
 
 #pragma mark - Properties
 
@@ -160,37 +181,57 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
   return self;
 }
 
+
 - (POViewFrameBuilder *)alignToTopInSuperviewWithInset:(CGFloat)inset {
-  [self alignToTopInSuperviewWithInsets:UIEdgeInsetsMake(inset, 0.0f, 0.0f, 0.0f)];
+  [self alignToTopInSuperviewWithInsetTop:inset left:0.0f bottom:0.0f right:0.0f];
 
   return self;
 }
 
 - (POViewFrameBuilder *)alignToBottomInSuperviewWithInset:(CGFloat)inset {
-  [self alignToBottomInSuperviewWithInsets:UIEdgeInsetsMake(0.0f, 0.0f, inset, 0.0f)];
+  [self alignToTopInSuperviewWithInsetTop:0.0f left:0.0f bottom:inset right:0.0f];
 
   return self;
 }
 
 - (POViewFrameBuilder *)alignLeftInSuperviewWithInset:(CGFloat)inset {
-  [self alignLeftInSuperviewWithInsets:UIEdgeInsetsMake(0.0f, inset, 0.0f, 0.0f)];
+  [self alignToTopInSuperviewWithInsetTop:0.0f left:inset bottom:0.0f right:0.0f];
 
   return self;
 
 }
 
 - (POViewFrameBuilder *)alignRightInSuperviewWithInset:(CGFloat)inset {
-  [self alignRightInSuperviewWithInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, inset)];
+  [self alignToTopInSuperviewWithInsetTop:0.0f left:0.0f bottom:0.0f right:inset];
 
   return self;
 }
 
+
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+
 - (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(UIEdgeInsets)insets {
-  self.frame = PORectWithOrigin(self.frame,
-                                self.frame.origin.x + insets.left - insets.right,
-                                insets.top - insets.bottom);
+  [self alignToTopInSuperviewWithInsetTop:insets.top left:insets.left bottom:insets.bottom right:insets.right];
 
   return self;
+}
+
+#else
+
+
+
+#endif
+
+
+- (POViewFrameBuilder *)alignToTopInSuperviewWithInsetTop:(CGFloat)topInset
+                                                     left:(CGFloat)leftInset
+                                                   bottom:(CGFloat)bottomInset
+                                                    right:(CGFloat)rightInset {
+    self.frame = PORectWithOrigin(self.frame,
+                                  self.frame.origin.x + leftInset - rightInset,
+                                  topInset - bottomInset);
+    
+    return self;
 }
 
 - (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(UIEdgeInsets)insets {
