@@ -5,12 +5,18 @@
 //  Copyright (c) 2012 Citrix Systems, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "POGeometry.h"
 
-inline CGRect PORectInsets(CGRect rect, CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
-  return UIEdgeInsetsInsetRect(rect, UIEdgeInsetsMake(top, left, bottom, right));
-}
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+    #import <UIKit/UIKit.h>
+#else
+    #import <Cocoa/Cocoa.h>
+#endif
+
+
+//inline CGRect PORectInsets(CGRect rect, CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+//  return UIEdgeInsetsInsetRect(rect, UIEdgeInsetsMake(top, left, bottom, right));
+//}
 
 inline CGRect PORectFromSize(CGFloat width, CGFloat height) {
   return PORectWithSize(CGRectZero, width, height);

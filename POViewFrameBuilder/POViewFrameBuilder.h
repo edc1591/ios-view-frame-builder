@@ -9,12 +9,21 @@
 
 @interface POViewFrameBuilder : NSObject
 
-@property (nonatomic, weak, readonly) UIView *view;
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  @property (nonatomic, weak, readonly) UIView *view;
+#else
+  @property (nonatomic, weak, readonly) NSView *view;
+#endif
 @property (nonatomic) BOOL automaticallyCommitChanges; // Default is YES
 
-- (id)initWithView:(UIView *)view;
 
-+ (POViewFrameBuilder *)frameBuilderForView:(UIView *)view;
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  - (id)initWithView:(UIView *)view;
+  + (POViewFrameBuilder *)frameBuilderForView:(UIView *)view;
+#else
+  - (id)initWithView:(NSView *)view;
+  + (POViewFrameBuilder *)frameBuilderForView:(NSView *)view;
+#endif
 
 - (void)commit;
 - (void)reset;
@@ -42,20 +51,36 @@
 - (POViewFrameBuilder *)alignLeftInSuperviewWithInset:(CGFloat)inset;
 - (POViewFrameBuilder *)alignRightInSuperviewWithInset:(CGFloat)inset;
 
-- (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(UIEdgeInsets)insets;
-- (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(UIEdgeInsets)insets;
-- (POViewFrameBuilder *)alignLeftInSuperviewWithInsets:(UIEdgeInsets)insets;
-- (POViewFrameBuilder *)alignRightInSuperviewWithInsets:(UIEdgeInsets)insets;
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  - (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(UIEdgeInsets)insets;
+  - (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(UIEdgeInsets)insets;
+  - (POViewFrameBuilder *)alignLeftInSuperviewWithInsets:(UIEdgeInsets)insets;
+  - (POViewFrameBuilder *)alignRightInSuperviewWithInsets:(UIEdgeInsets)insets;
 
-- (POViewFrameBuilder *)alignToTopOfView:(UIView *)view offset:(CGFloat)offset;
-- (POViewFrameBuilder *)alignToBottomOfView:(UIView *)view offset:(CGFloat)offset;
-- (POViewFrameBuilder *)alignLeftOfView:(UIView *)view offset:(CGFloat)offset;
-- (POViewFrameBuilder *)alignRightOfView:(UIView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignToTopOfView:(UIView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignToBottomOfView:(UIView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignLeftOfView:(UIView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignRightOfView:(UIView *)view offset:(CGFloat)offset;
+
+  + (void)alignViewsVertically:(NSArray *)views spacingWithBlock:(CGFloat (^)(UIView *firstView, UIView *secondView))block;
+  + (void)alignViewsHorizontally:(NSArray *)views spacingWithBlock:(CGFloat (^)(UIView *firstView, UIView *secondView))block;
+#else
+  - (POViewFrameBuilder *)alignToTopInSuperviewWithInsets:(NSEdgeInsets)insets;
+  - (POViewFrameBuilder *)alignToBottomInSuperviewWithInsets:(NSEdgeInsets)insets;
+  - (POViewFrameBuilder *)alignLeftInSuperviewWithInsets:(NSEdgeInsets)insets;
+  - (POViewFrameBuilder *)alignRightInSuperviewWithInsets:(NSEdgeInsets)insets;
+
+  - (POViewFrameBuilder *)alignToTopOfView:(NSView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignToBottomOfView:(NSView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignLeftOfView:(NSView *)view offset:(CGFloat)offset;
+  - (POViewFrameBuilder *)alignRightOfView:(NSView *)view offset:(CGFloat)offset;
+
+  + (void)alignViewsVertically:(NSArray *)views spacingWithBlock:(CGFloat (^)(NSView *firstView, NSView *secondView))block;
+  + (void)alignViewsHorizontally:(NSArray *)views spacingWithBlock:(CGFloat (^)(NSView *firstView, NSView *secondView))block;
+#endif
 
 + (void)alignViewsVertically:(NSArray *)views spacing:(CGFloat)spacing;
-+ (void)alignViewsVertically:(NSArray *)views spacingWithBlock:(CGFloat (^)(UIView *firstView, UIView *secondView))block;
 + (void)alignViewsHorizontally:(NSArray *)views spacing:(CGFloat)spacing;
-+ (void)alignViewsHorizontally:(NSArray *)views spacingWithBlock:(CGFloat (^)(UIView *firstView, UIView *secondView))block;
 
 // Resize
 - (POViewFrameBuilder *)setWidth:(CGFloat)width;

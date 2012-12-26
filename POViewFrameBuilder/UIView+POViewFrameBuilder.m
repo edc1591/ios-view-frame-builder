@@ -7,6 +7,8 @@
 
 #import "UIView+POViewFrameBuilder.h"
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+
 @implementation UIView (POViewFrameBuilder)
 
 - (POViewFrameBuilder *)po_frameBuilder {
@@ -14,3 +16,5 @@
 }
 
 @end
+
+#endif
