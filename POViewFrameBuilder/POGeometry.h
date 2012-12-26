@@ -5,7 +5,9 @@
 //  Copyright (c) 2012 Citrix Systems, Inc. All rights reserved.
 //
 
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
 extern inline CGRect PORectInsets(CGRect rect, CGFloat top, CGFloat left, CGFloat bottom, CGFloat right);
+#endif
 
 extern inline CGRect PORectFromSize(CGFloat width, CGFloat height);
 extern inline CGRect PORectWithSize(CGRect rect, CGFloat width, CGFloat height);

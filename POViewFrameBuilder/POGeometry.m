@@ -14,9 +14,12 @@
 #endif
 
 
-//inline CGRect PORectInsets(CGRect rect, CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
-//  return UIEdgeInsetsInsetRect(rect, UIEdgeInsetsMake(top, left, bottom, right));
-//}
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+// TODO What's the counterpart of UIEdgeInsetsInsetRect in Cocoa?
+inline CGRect PORectInsets(CGRect rect, CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+  return UIEdgeInsetsInsetRect(rect, UIEdgeInsetsMake(top, left, bottom, right));
+}
+#endif
 
 inline CGRect PORectFromSize(CGFloat width, CGFloat height) {
   return PORectWithSize(CGRectZero, width, height);
