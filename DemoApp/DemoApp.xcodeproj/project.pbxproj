@@ -21,7 +21,6 @@
 		50A09632164FE0770096E97A /* POGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0962D164FE0770096E97A /* POGeometry.m */; };
 		50A09633164FE0770096E97A /* POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0962F164FE0770096E97A /* POViewFrameBuilder.m */; };
 		50A09634164FE0770096E97A /* UIView+POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A09631164FE0770096E97A /* UIView+POViewFrameBuilder.m */; };
-		A587384A168B92CE00749421 /* NSView+POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873849168B92CE00749421 /* NSView+POViewFrameBuilder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +47,6 @@
 		50A0962F164FE0770096E97A /* POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POViewFrameBuilder.m; sourceTree = "<group>"; };
 		50A09630164FE0770096E97A /* UIView+POViewFrameBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+POViewFrameBuilder.h"; sourceTree = "<group>"; };
 		50A09631164FE0770096E97A /* UIView+POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+POViewFrameBuilder.m"; sourceTree = "<group>"; };
-		A5873848168B92CE00749421 /* NSView+POViewFrameBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+POViewFrameBuilder.h"; sourceTree = "<group>"; };
-		A5873849168B92CE00749421 /* NSView+POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+POViewFrameBuilder.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +128,6 @@
 				50A0962F164FE0770096E97A /* POViewFrameBuilder.m */,
 				50A09630164FE0770096E97A /* UIView+POViewFrameBuilder.h */,
 				50A09631164FE0770096E97A /* UIView+POViewFrameBuilder.m */,
-				A5873848168B92CE00749421 /* NSView+POViewFrameBuilder.h */,
-				A5873849168B92CE00749421 /* NSView+POViewFrameBuilder.m */,
 			);
 			name = POViewFrameBuilder;
 			path = ../POViewFrameBuilder;
@@ -211,7 +206,6 @@
 				50A09632164FE0770096E97A /* POGeometry.m in Sources */,
 				50A09633164FE0770096E97A /* POViewFrameBuilder.m in Sources */,
 				50A09634164FE0770096E97A /* UIView+POViewFrameBuilder.m in Sources */,
-				A587384A168B92CE00749421 /* NSView+POViewFrameBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
