@@ -62,7 +62,11 @@ typedef NS_ENUM(NSUInteger, POViewFrameBuilderEdge) {
 #pragma mark - Impl
 
 - (void)commit {
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
   self.view.frame = self.frame;
+#else
+  [self.view.animator setFrame:self.frame];
+#endif
 }
 
 - (void)reset {
