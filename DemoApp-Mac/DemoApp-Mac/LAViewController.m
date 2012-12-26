@@ -7,7 +7,7 @@
 //
 
 #import "LAViewController.h"
-#import "NSView+POViewFrameBuilder.h"
+#import "UIView+POViewFrameBuilder.h"
 
 static NSTimeInterval kAnimationDuration = 1.0;
 static CGFloat kEdgeInset = 10.0f;

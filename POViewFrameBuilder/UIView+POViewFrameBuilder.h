@@ -6,14 +6,16 @@
 //
 
 #ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+  #import <UIKit/UIKit.h>
+#else
+  #import <Cocoa/Cocoa.h>
+#endif
 
-#import <UIKit/UIKit.h>
 #import "POViewFrameBuilder.h"
 
-@interface UIView (POViewFrameBuilder)
+@interface NSUIView (POViewFrameBuilder)
 
 @property (nonatomic, strong, readonly) POViewFrameBuilder *po_frameBuilder;
 
 @end
 
-#endif

@@ -16,7 +16,6 @@
 		A587381A168B31D600749421 /* POGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873815168B31D600749421 /* POGeometry.m */; };
 		A587381B168B31D600749421 /* POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873817168B31D600749421 /* POViewFrameBuilder.m */; };
 		A587381C168B31D600749421 /* UIView+POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873819168B31D600749421 /* UIView+POViewFrameBuilder.m */; };
-		A5873847168B91E400749421 /* NSView+POViewFrameBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873846168B91E400749421 /* NSView+POViewFrameBuilder.m */; };
 		A5873852168B956D00749421 /* LAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5873850168B956C00749421 /* LAViewController.m */; };
 		A5873853168B956D00749421 /* LAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5873851168B956C00749421 /* LAViewController.xib */; };
 		A5873855168B95E700749421 /* green_square.png in Resources */ = {isa = PBXBuildFile; fileRef = A5873854168B95E700749421 /* green_square.png */; };
@@ -42,8 +41,6 @@
 		A5873817168B31D600749421 /* POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POViewFrameBuilder.m; sourceTree = "<group>"; };
 		A5873818168B31D600749421 /* UIView+POViewFrameBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+POViewFrameBuilder.h"; sourceTree = "<group>"; };
 		A5873819168B31D600749421 /* UIView+POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+POViewFrameBuilder.m"; sourceTree = "<group>"; };
-		A5873845168B91E400749421 /* NSView+POViewFrameBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+POViewFrameBuilder.h"; sourceTree = "<group>"; };
-		A5873846168B91E400749421 /* NSView+POViewFrameBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+POViewFrameBuilder.m"; sourceTree = "<group>"; };
 		A587384F168B956C00749421 /* LAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAViewController.h; sourceTree = "<group>"; };
 		A5873850168B956C00749421 /* LAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAViewController.m; sourceTree = "<group>"; };
 		A5873851168B956C00749421 /* LAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LAViewController.xib; sourceTree = "<group>"; };
@@ -135,8 +132,6 @@
 				A5873817168B31D600749421 /* POViewFrameBuilder.m */,
 				A5873818168B31D600749421 /* UIView+POViewFrameBuilder.h */,
 				A5873819168B31D600749421 /* UIView+POViewFrameBuilder.m */,
-				A5873845168B91E400749421 /* NSView+POViewFrameBuilder.h */,
-				A5873846168B91E400749421 /* NSView+POViewFrameBuilder.m */,
 			);
 			name = POViewFrameBuilder;
 			path = ../POViewFrameBuilder;
@@ -214,7 +209,6 @@
 				A587381A168B31D600749421 /* POGeometry.m in Sources */,
 				A587381B168B31D600749421 /* POViewFrameBuilder.m in Sources */,
 				A587381C168B31D600749421 /* UIView+POViewFrameBuilder.m in Sources */,
-				A5873847168B91E400749421 /* NSView+POViewFrameBuilder.m in Sources */,
 				A5873852168B956D00749421 /* LAViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
