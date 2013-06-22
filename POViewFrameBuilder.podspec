@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = { "Sebastian Rehnby" => "sebastian@podio.com" }
 
-  s.source       = { :git => "https://github.com/edc1591/ios-view-frame-builder.git", :tag => "1.0.2-mac" }
+  s.source       = { :git => "https://github.com/edc1591/ios-view-frame-builder.git", :head }
 
   s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.6.8'
